@@ -75,7 +75,7 @@ def solution(board, moves):
                 break
     return cnt
 
-#신규 아이디 추천
+#신규 아이디 추천 정규식 공부 필수
 def solution(new_id):
     id = list(new_id)
     set_str = 'abcdefghijklmnopqrstuvwxyz0123456789-_.'
@@ -133,3 +133,129 @@ def solution(new_id):
 
     return id
 
+#키패드 누르기
+def solution(numbers, hand):
+    hand_str = ''
+    pad = {
+        1: (0, 0), 2: (0, 1), 3: (0, 2),
+        4: (1, 0), 5: (1, 1), 6: (1, 2),
+        7: (2, 0), 8: (2, 1), 9: (2, 2),
+        '*': (3, 0), 0: (3, 1), '#': (3, 2),
+    }
+    now_l_hand = pad['*']
+    now_r_hand = pad['#']
+    for i in numbers:
+        if i in [1,4,7]:
+            now_l_hand = pad[i]
+            hand_str += 'l'
+        elif i in [3,6,9]:
+            now_r_hand = pad[i]
+            hand_str += 'r'
+        else:
+            왼손거리 = []
+            오른손거리 = []
+            for j in range(2):
+                l_sa = pad[i][j] - now_l_hand[j] 
+                r_sa = pad[i][j] - now_r_hand[j]
+                왼손거리.append(l_sa if l_sa >=0 else l_sa*-1)
+                오른손거리.append(r_sa if r_sa >=0 else r_sa*-1)
+            if sum(왼손거리) > sum(오른손거리):
+                hand_str += 'r'
+                now_r_hand = pad[i]
+            elif sum(왼손거리) < sum(오른손거리):
+                hand_str += 'l'
+                now_l_hand = pad[i]
+            else:
+                hand_str += hand[0]
+                if hand[0] == 'r':
+                    now_r_hand = pad[i]
+                else:
+                    now_l_hand = pad[i]
+    return hand_str.upper()
+
+#폰켓몬
+def solution(nums):
+    가져갈_마리수 = len(nums) / 2
+    다른_마리들 = []
+    for i in nums:
+        if  i not in 다른_마리들:
+            다른_마리들.append(i)
+
+    if len(다른_마리들) > 가져갈_마리수:
+        return 가져갈_마리수
+    return len(다른_마리들)
+
+#평균 구하기
+def solution(arr):
+    return sum(arr)/len(arr)
+
+#핸드폰 번호 가리기
+def solution(phone_number):
+    back_numb = phone_number[-4:]
+    return '*'*(len(phone_number)-4) + back_numb
+
+#직사각형 별 찍기
+# a, b = map(int, input().strip().split(' '))
+# for i in range(b):
+#     for j in range(a):
+#         print('*',end='')
+#     print()
+
+
+#K번째수
+def solution(array, commands):
+    # list(map(lambda x: sorted(array[x[0]-1:x[1]])[x[2]-1],commands))
+    # 이렇게 깔끔하게 풀도록 생각해보자
+    answer = []
+    for command in commands:
+            앞 = command[0] - 1
+            뒤 =command[1]
+            new_arr = sorted(array[앞:뒤])
+            answer.append(new_arr[command[2]-1])
+    return answer
+
+#같은 숫자는 싫어
+def solution(arr):
+    str1 = "".join(map(str, arr))
+    for i in range(0,9+1):
+        print(str(i)*2)
+        while True:
+            before = str1
+            str1 = str1.replace(str(i)*2,str(i))
+            if before == str1:
+                break
+    return list(map(int,list(str1)))
+
+#나머지가 1이 되는 수 찾기
+def solution(n):
+    pre_n = n - 1
+    cnt = 2;
+    while True:
+        if pre_n % cnt == 0: return cnt
+        cnt += 1
+        if cnt ** 2 > pre_n: break
+    return pre_n
+
+#체육복
+def solution(n, lost, reserve):
+    new_lost = list(filter(lambda x: x not in reserve ,lost))
+    new_reserve = list(filter(lambda x: x not in lost ,reserve))
+    n += len(reserve)-len(new_reserve)-len(lost)
+    print(new_reserve)
+    print(new_lost)
+    new_lost.sort()
+    new_reserve.sort()
+    for i in new_reserve:
+        if i-1 in new_lost:
+            new_lost.remove(i-1)
+            n += 1
+        elif i+1 in new_lost:
+            new_lost.remove(i+1)
+            n += 1
+    return n
+
+#가운데 글자 가져오기
+def solution(s):
+    if len(s) % 2 == 0:
+        return s[(len(s)//2)-1:(len(s)//2)+1 ]
+    return s[(len(s)//2):(len(s)//2)+1 ]
