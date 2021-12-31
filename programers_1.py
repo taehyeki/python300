@@ -259,3 +259,202 @@ def solution(s):
     if len(s) % 2 == 0:
         return s[(len(s)//2)-1:(len(s)//2)+1 ]
     return s[(len(s)//2):(len(s)//2)+1 ]
+
+#완주하지 못한 선수
+def solution(participant, completion):
+    #중복이 안 된 경우
+    s1 = set(participant)
+    s2 = set(completion)
+    if len(s1 - s2) == 1:
+        return list(s1-s2)[0]
+    cnt = 0
+    while True:
+        prt_cnt = participant.count(completion[cnt])
+        if prt_cnt > 1 and completion.count(completion[cnt]) != prt_cnt:
+            return completion[cnt]
+        cnt += 1
+
+#나누어 떨어지는 숫자 배열
+def solution(arr, divisor):
+    answer = [i for i in arr if i % divisor == 0]
+    answer = sorted(answer)
+    if answer == []: return [-1]
+    # for i in range(1,len(answer)):
+    #     for j in range(i,0,-1):
+    #         if answer[j] > answer[j-1]:
+    #             answer[j],answer[j-1] = answer[j-1],answer[j]
+
+    return answer
+
+#모의고사
+def solution(answers):
+    supojs_dict = {1: [1, 2, 3, 4, 5], 2: [2, 1, 2, 3, 2, 4, 2, 5], 3: [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]}
+    idx = {1: 0, 2: 0, 3: 0}
+    grade = {1: 0, 2: 0, 3: 0}
+    for i in answers:
+        if idx[1] == 5: idx[1] = 0
+        if idx[2] == 8: idx[2] = 0
+        if idx[3] == 10: idx[3] = 0
+        for j in range(1,4):
+            if supojs_dict[j][idx[j]] == i: grade[j] += 1
+            idx[j] += 1
+
+    max_1 =  max(grade.values())
+    list = []
+    for key,value in grade.items():
+        if max_1 == value:
+            list.append(key)
+    return list
+
+#서울에서 김서방 찾기
+def solution(seoul):
+    for idx, value in enumerate(seoul):
+        if value == 'Kim':
+            return f'김서방은 {idx}에 있다'
+
+#문자열 다루기 기본
+def solution(s):
+    return len(s) in [4,6] and s.isnumeric()
+
+#수박수박수박수박수박수?
+def solution(n):
+    return "".join([ ['박','수'][i%2] for i in range(1,n+1) ])
+
+#두 정수 사이의 합
+def solution(a, b):
+    sum = 0
+    if a > b:
+        for i in range(b,a+1):
+            sum += i
+    elif b > a:
+        for i in range(a,b+1):
+            sum += i
+    else:
+        sum = a
+    return sum
+
+#문자열을 정수로 바꾸기
+def solution(s):
+    if s[0] == '-': return int(s[1:])*-1
+    return int(s[0:])
+
+#문자열 내림차순으로 배치하기
+def solution(s):
+    answer = list(s)
+    for i in range(len(answer)):
+        for j in range(i,0,-1):
+            if answer[j] > answer[j-1]:
+                answer[j],answer[j-1] = answer[j-1],answer[j]
+    return "".join(answer)
+
+#문자열 내 p와 y의 개수
+def solution(s):
+    s = s.lower()
+    return s.count('y') == s.count('p')
+
+#자릿수 더하기
+def solution(n):
+    answer = 0
+    for i in str(n):
+        answer += int(i)
+    return answer
+
+
+#문자열을 정수로 바꾸기
+def solution(n):
+    return [  int(i) for i in list(str(n))[::-1] ]
+
+#정수 내림차순으로 배치하기
+def solution(n):
+    return int("".join([ i for i in sorted(str(n),reverse=True)]))
+
+#콜라츠 추측
+def solution(num):
+    index = 0
+    while index < 500:
+        if num == 1: return index
+        if num % 2 == 0:
+            num /= 2
+        else:
+            num = (num * 3) + 1
+        index += 1
+    return -1
+
+#두 개 뽑아서 더하기
+def solution(numbers):
+    result = []
+    for i in range(len(numbers)):
+        for k in range(i+1, len(numbers)):
+            if (numbers[i] + numbers[k]) not in result: result.append(numbers[i] + numbers[k])
+    return sorted(result)
+
+#최소직사각형
+def solution(list):
+    index_max = 0
+    max_value = 0
+    max_value2 = 0
+    for i in list:
+        if max_value < max(i):
+            max_value = max(i)
+            index_max =  i.index(max_value)
+
+    for i in list:
+        if i[0] > i[1]:
+            if i[1] > max_value2:
+                max_value2 = i[1]
+        elif i[0] < i[1]:
+            if i[0] > max_value2:
+                max_value2 = i[0]
+        else:
+            if i[0] > max_value2:
+                max_value2 = i[0]
+
+    return max_value2 *  max_value
+
+#짝수와 홀수
+def solution(num):
+    return 'Odd' if num % 2 == 1 else 'Even'
+
+#제일 작은 수 제거하기
+def solution(arr):
+    arr.remove((min(arr)))
+    return [-1] if len(arr) == 0 else arr
+
+#x만큼 간격이 있는 n개의 숫자
+def solution(x, n):
+    return [x*i for i in (range(1,n+1))]
+
+#행렬의 덧셈
+def solution(arr1, arr2):
+    arr3 = []
+    for i in range(len(arr1)):
+        arr=[]
+        for j in range(len(arr1[0])):
+            arr.append(arr1[i][j]+arr2[i][j])
+        arr3.append(arr)
+    return arr3
+
+#하샤드 수
+def solution(x):
+    sum = 0
+    for i in str(x)[::-1]:
+        sum += int(i)
+    return x % sum == 0
+
+#이상한 문자 만들기
+def solution(s):
+    list = s.split(" ")
+    new_list = []
+    for i in list:
+        a = ''
+        idx = 0
+        for j in i:
+            if idx % 2 == 0: a += j.upper()
+            else: a += j.lower()
+            idx += 1
+        new_list.append(a)
+    new = " ".join(new_list)
+    return new
+
+
+
