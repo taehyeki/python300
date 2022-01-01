@@ -457,4 +457,65 @@ def solution(s):
     return new
 
 
+#정수 제곱근 판별
+import math
+def solution(n):
+    isit = math.sqrt(n).is_integer()
+    return int((math.sqrt(n)+1)**2) if isit else -1
+
+
+#정수 제곱근 판별
+def solution(n):
+    isit = (n ** (1/2)).is_integer()
+    return int((math.sqrt(n)+1)**2) if isit else -1
+
+#부족한 금액 계산하기
+def solution(price, money, count):
+    sum = 0
+    for i in range(1,count+1): sum += i * price
+    return sum - money if  sum - money > 0 else 0
+
+
+def solution(s,n):
+    list1 = s.split()
+    is_list = 0
+    if len(list1) >2 : is_list = 1
+    if is_list == 0:
+        a = ord(s[0]) + n
+        if 97 <= ord(s[0]) < 123 and a >= 123:
+            a -= 26
+        elif ord(s[0]) < 91 and a >= 91:
+            a -= 26
+        b = ''
+        for i in range(len(s)): b += chr(a + i)
+        return b
+    else:
+        new_list = []
+        for i in range(len(list1)):
+            a = ord(list1[i]) + n
+            if 97 <= ord(list1[i]) < 123 and a >= 123:
+                a -= 26
+            elif ord(list1[i]) < 91 and a >= 91:
+                a -= 26
+            b = ''
+            for j in range(len(list1[i])):
+                b += chr(a + j)
+            new_list.append(b)
+        new_list = " ".join(new_list)
+        return new_list
+#시저 암호
+def solution(s,n):
+    str_list = list(s)
+    str = ''
+    for idx, el in enumerate(str_list):
+        if ord(el) == 32:
+            str += el
+            continue
+        el_plus = ord(el) + n
+        if 97 <= ord(el) < 123 and el_plus >= 123:
+            el_plus -= 26
+        elif ord(el) < 91 and el_plus >= 91:
+            el_plus -= 26
+        str += chr(el_plus)
+    return str
 
