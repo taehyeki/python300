@@ -519,3 +519,156 @@ def solution(s,n):
         str += chr(el_plus)
     return str
 
+#다른 사람의 풀이
+
+def solution(numbers):
+    return sum( [i for i in range(10) if i not in numbers])
+
+
+#실패율
+def solution(N, stages):
+    players_all = len(stages)
+    fail_rate_dict = {}
+    fail_rate_list = []
+    for stage in range(1,N+1):
+        if stage not in stages:
+            fail_rate_dict[stage] = 0
+            continue
+        players_now = stages.count(stage)
+        fail_rate = players_now / players_all
+        fail_rate_dict[stage]=fail_rate
+        players_all -= players_now
+    count = len(fail_rate_dict)
+    for i in range(1,count+1):
+        idx = 1
+        for j in range(1,count+1):
+            if fail_rate_dict[j] > fail_rate_dict[idx]:
+                idx = j
+
+        fail_rate_list.append(idx)
+        fail_rate_dict[idx] = -1
+
+    return fail_rate_dict
+
+
+#[1차] 비밀지도
+def add_zero(n,list):
+    while n > len(list):
+        list.insert(0,'0')
+    return list
+
+def solution(n,arr1, arr2):
+    map1 =[]
+    for e1,e2 in zip(arr1,arr2):
+        bin_e1  = add_zero(n,list(bin(e1)[2:]))
+        bin_e2 = add_zero(n, list(bin(e2)[2:]))
+        map2 = []
+        for i in range(n):
+            if int(bin_e1[i]) + int(bin_e2[i]) > 0: map2.insert(i,'#')
+            else: map2.insert(i,' ')
+        map1.append("".join(map2))
+    return map1
+
+#[1차] 다트 게임
+def solution(dartResult):
+    dart_list = list(dartResult)
+    score_list = []
+    bonus_dict = {'S':1,'D':2,'T':3}
+    score_idx = 0
+    i = 0
+    while i < len(dart_list):
+        if dart_list[i] == '1' and dart_list[i+1] == '0':
+            dart_list[i] = '10'
+            del dart_list[i + 1]
+        if dart_list[i].isdigit():
+            score = int(dart_list[i])**bonus_dict[dart_list[i+1]]
+            score_list.append(score)
+            if i+2 <= len(dart_list)-1 and dart_list[i+2] in ['#','*']:
+                if dart_list[i+2] == '#':
+                    score_list[score_idx] *= -1
+                elif dart_list[i+2] == '*':
+                    if score_idx >= 1:
+                        score_list[score_idx-1] *=2
+                    score_list[score_idx] *= 2
+            score_idx+=1
+        i+=1
+    return sum(score_list)
+
+
+#3진법 뒤집기
+def change3(n):
+    if n == 0: return ''
+    again = n // 3
+    end = n % 3
+    return str(end) + str(change3(again))
+
+def solution(n):
+    revered3 = change3(n)
+    sum = 0
+    for idx,i in enumerate(revered3): sum += (int(i))*(3**(len(revered3)-idx-1))
+    return sum
+
+
+#소수 구하기
+def solution(n):
+    all_num = list(range(0,n+1))
+    primes = []
+    for i in range(2,len(all_num)):
+        if all_num[i] == 0: continue
+        primes.append(i)
+        for j in range(i*2,len(all_num),i):
+            all_num[j] = 0
+    return len(primes)
+
+#약수의 합
+def solution(s):
+    list = []
+    list2 = []
+    sqrt_s = int(s**(1/2))
+    for i in range(1, sqrt_s + 1):
+        if s % i == 0: list.append(i)
+    for i in list:
+        if s % i == 0: list2.append(int(s/i))
+    return sum(set(list+list2))
+
+#약수의 개수와 덧셈
+def get_nums(s):
+    sqrt_s = int(s ** (1 / 2))
+    list1 = [i for i in range(1, sqrt_s + 1) if s % i == 0]
+    list2 = [int(s / i) for i in list1 if s % i == 0]
+    for i in list1:
+        if s % i == 0: list2.append(int(s / i))
+    return len(set(list1 + list2))
+
+
+def solution(l,r):
+    sum = 0
+    for i in range(l,r+1):
+        if get_nums(i) % 2 == 0: sum += i
+        else: sum -= i
+    return sum
+
+
+
+
+#2016년
+import datetime as dt
+def solution(a,b):
+    list = ['MON','TUE','WED','THU','FRI','SAT','SUN']
+    date = f'2016-{a}-{b}'
+    return list[dt.datetime.strptime(date,"%Y-%m-%d").weekday()]
+
+#최대공약수와 최소공배수
+def solution(a,b):
+    if b < a: a, b = b, a
+    sum = a*b
+    while a != 0:
+        temp = a
+        a = b % a
+        b = temp
+    return [b, int(sum / b)]
+
+print(solution(2,5))
+
+
+
