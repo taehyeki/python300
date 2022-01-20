@@ -670,5 +670,25 @@ def solution(a,b):
 
 print(solution(2,5))
 
+#신고 결과 받기
+def solution(id_list, report, k):
+    dic = { i : [[],0] for i in id_list}
+    answer = [ 0 for i in id_list]
 
+    for i in report:
+        singoja = i.split(' ')[0]
+        singo = i.split(' ')[1]
+        if singo in dic[singoja][0] :
+            continue
+        else:
+            dic[singoja][0].append(singo)
+            dic[singo][1] += 1
+
+    idx = 0
+    for v in dic.values():
+        for i in v[0]:
+            if dic[i][1] >= k:
+                answer[idx] += 1
+        idx += 1
+    return answer
 
