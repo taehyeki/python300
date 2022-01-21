@@ -258,7 +258,12 @@ def solution(n, lost, reserve):
 def solution(s):
     if len(s) % 2 == 0:
         return s[(len(s)//2)-1:(len(s)//2)+1 ]
-    return s[(len(s)//2):(len(s)//2)+1 ]
+    return s[(len(s)//2)]
+
+def solution(n):
+    length =len(n)
+    return n[length // 2] if length % 2 == 1 else n[length//2-1: length//2+1 ]
+
 
 #완주하지 못한 선수
 def solution(participant, completion):
@@ -318,7 +323,9 @@ def solution(s):
 
 #수박수박수박수박수박수?
 def solution(n):
-    return "".join([ ['박','수'][i%2] for i in range(1,n+1) ])
+    return "".join([ '수박'[i%2] for i in range(n)])
+def solution(n):
+    return  '수박'*(n // 2) if n % 2 == 0 else '수박'*(n//2) +'수'
 
 #두 정수 사이의 합
 def solution(a, b):
@@ -667,8 +674,6 @@ def solution(a,b):
         a = b % a
         b = temp
     return [b, int(sum / b)]
-
-print(solution(2,5))
 
 #신고 결과 받기
 def solution(id_list, report, k):
