@@ -656,6 +656,14 @@ def solution(l,r):
     return sum
 
 
+def solution(l,r):
+    sum = 0
+    for i in range(l,r+1):
+        sqrt = int(i**(1/2))
+        if sqrt ** 2 == i: sum -= i
+        else : sum += i
+    return sum
+
 
 
 #2016년
