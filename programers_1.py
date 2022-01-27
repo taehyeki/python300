@@ -526,6 +526,19 @@ def solution(s,n):
         str += chr(el_plus)
     return str
 
+def solution(str, n):
+    lower = 'abcdefghijklmnopqrstuvwxyz'
+    upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    answer = ''
+    for v in str:
+        if v == ' ':
+            answer += ' '
+            continue
+        if v.isupper(): answer += upper[(ord(v) + n - 65) % 26]
+        else : answer += lower[(ord(v) - 97 + n) % 26]
+    return answer
+
+
 #다른 사람의 풀이
 
 def solution(numbers):
