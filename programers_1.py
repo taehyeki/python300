@@ -213,7 +213,8 @@ def solution(array, commands):
             new_arr = sorted(array[앞:뒤])
             answer.append(new_arr[command[2]-1])
     return answer
-
+def solution(array,commands):
+    return [ sorted(array[(c[0]-1):c[1]])[c[2]-1] for c in commands]
 #같은 숫자는 싫어
 def solution(arr):
     str1 = "".join(map(str, arr))
