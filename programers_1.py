@@ -354,6 +354,8 @@ def solution(s):
             if answer[j] > answer[j-1]:
                 answer[j],answer[j-1] = answer[j-1],answer[j]
     return "".join(answer)
+def solution(s):
+    return "".join(sorted(list(s),reverse=True))
 
 #문자열 내 p와 y의 개수
 def solution(s):
