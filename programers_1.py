@@ -312,6 +312,27 @@ def solution(answers):
             list.append(key)
     return list
 
+def solution(answers):
+    student1 = [1, 2, 3, 4, 5]
+    student2 = [2, 1, 2, 3, 2, 4, 2, 5]
+    student3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
+    my_class = [student1, student2, student3]
+
+    for student_idx, student in enumerate(my_class):
+        cnt = 0
+        for my_num_idx, my_num in enumerate(answers):
+            index = my_num_idx % len(student)
+            if my_num == student[index]:
+                cnt += 1
+        my_class[student_idx] = cnt
+
+    returnArray = []
+    for index, value in enumerate(my_class):
+        if max(my_class) == value:
+            returnArray.append(index + 1)
+    return returnArray
+
+
 #서울에서 김서방 찾기
 def solution(seoul):
     for idx, value in enumerate(seoul):
