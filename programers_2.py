@@ -252,3 +252,31 @@ def solution(str1, str2):
             max += v[1]
     last = min / (base + max + cnt)
     return int(last*65536)
+
+
+
+#영단어 끝말잇기
+
+import math
+
+
+def solution(n, arr):
+    prev_end = arr[0][-1]
+    my_turn, stage = 0, 0
+    for idx, word in enumerate(arr):
+
+        if idx == 0:
+            continue
+        now_start = word[0]
+        if now_start == prev_end and word not in arr[:idx]:
+            prev_end = word[-1]
+            continue
+        else:
+            stage = math.ceil((idx + 1) / n)
+            my_turn = (idx) % n
+            break
+    if stage > 0:
+
+        return [my_turn + 1, int(stage)]
+    else:
+        return [0, 0]
